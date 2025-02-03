@@ -38,8 +38,8 @@ class WC_YengaPay_Gateway extends WC_Payment_Gateway {
     protected function setup_properties() {
         $this->id = 'yengapay';
         $this->icon = apply_filters('woocommerce_yengapay_icon', plugins_url('assets/yengapay_icon.png', dirname(__FILE__)));
-        $this->method_title = __('YengaPay', 'yengapay-woo');
-        $this->method_description = __('Payment aggregator.', 'yengapay-woo');
+        $this->method_title = __('YengaPay', 'yengapay');
+        $this->method_description = __('Payment aggregator.', 'yengapay');
         $this->has_fields = false;
     }
 
@@ -49,57 +49,57 @@ class WC_YengaPay_Gateway extends WC_Payment_Gateway {
     public function init_form_fields() {
         $this->form_fields = apply_filters('woo_yengapay_fields', array(
             'enabled' => array(
-                'title' => __('Enable/Disable', 'yengapay-woo'),
+                'title' => __('Enable/Disable', 'yengapay'),
                 'type' => 'checkbox',
-                'label' => __('Enable or Disable YengaPay', 'yengapay-woo'),
+                'label' => __('Enable or Disable YengaPay', 'yengapay'),
                 'default' => 'no'
             ),
             'title' => array(
-                'title' => __('Title', 'yengapay-woo'),
+                'title' => __('Title', 'yengapay'),
                 'type' => 'title', 
-                'default' => __('YengaPay', 'yengapay-woo'),
+                'default' => __('YengaPay', 'yengapay'),
                 'desc_tip' => true,
-                'description' => __('YengaPay', 'yengapay-woo')
+                'description' => __('YengaPay', 'yengapay')
             ),
             'description' => array(
-                'title' => __('Description', 'yengapay-woo'),
+                'title' => __('Description', 'yengapay'),
                 'type' => 'title',
-                'default' => __('Payez via YengaPay, un agrégateur de paiement local.', 'yengapay-woo'),
+                'default' => __('Payez via YengaPay, un agrégateur de paiement local.', 'yengapay'),
                 'desc_tip' => true,
-                'description' => __('Payez via YengaPay, un agrégateur de paiement local.', 'yengapay-woo')
+                'description' => __('Payez via YengaPay, un agrégateur de paiement local.', 'yengapay')
             ),
             'groupeId' => array(
-                'title' => __('Groupe ID', 'yengapay-woo'),
+                'title' => __('Groupe ID', 'yengapay'),
                 'type' => 'text',
-                'default' => __('0000000', 'yengapay-woo'),
+                'default' => __('0000000', 'yengapay'),
                 'desc_tip' => true,
-                'description' => __('Add your YengaPay Group ID.', 'yengapay-woo')
+                'description' => __('Add your YengaPay Group ID.', 'yengapay')
             ),
             'apikey' => array(
-                'title' => __('ApiKey', 'yengapay-woo'),
+                'title' => __('ApiKey', 'yengapay'),
                 'type' => 'password',
-                'default' => __('Ysjhdgjhgszllhdkgui', 'yengapay-woo'),
+                'default' => __('Ysjhdgjhgszllhdkgui', 'yengapay'),
                 'desc_tip' => true,
-                'description' => __('Add your ApiKey.', 'yengapay-woo')
+                'description' => __('Add your ApiKey.', 'yengapay')
             ),
             'projectId' => array(
-                'title' => __('Project ID', 'yengapay-woo'),
+                'title' => __('Project ID', 'yengapay'),
                 'type' => 'text',
-                'default' => __('00000', 'yengapay-woo'),
+                'default' => __('00000', 'yengapay'),
                 'desc_tip' => true,
-                'description' => __('Add your yenga pay project id', 'yengapay-woo')
+                'description' => __('Add your yenga pay project id', 'yengapay')
             ),
             'webhook_url' => array(
-                'title' => __('URL du webhook', 'yengapay-woo'),
+                'title' => __('URL du webhook', 'yengapay'),
                 'type' => 'text',
                 'default' => $this->webhook_url,
-                'description' => __('Copiez cette URL dans votre dashboard YengaPay pour recevoir les notifications de paiement.', 'yengapay-woo'),
+                'description' => __('Copiez cette URL dans votre dashboard YengaPay pour recevoir les notifications de paiement.', 'yengapay'),
                 'custom_attributes' => array('readonly' => 'readonly'),
             ),
             'webhook_secret' => array(
-                'title' => __('Webhook Secret', 'yengapay-woo'),
+                'title' => __('Webhook Secret', 'yengapay'),
                 'type' => 'password',
-                'description' => __('The webhook secret provided by YengaPay to verify notifications.', 'yengapay-woo'),
+                'description' => __('The webhook secret provided by YengaPay to verify notifications.', 'yengapay'),
                 'default' => '',
                 'desc_tip' => true,
             ),
@@ -159,7 +159,7 @@ class WC_YengaPay_Gateway extends WC_Payment_Gateway {
             $rate = YengaPay_Currency_Converter::get_conversion_rate($order_currency);
             $order->add_order_note(
                 sprintf(
-                    __('Montant converti de %s %s en %s XOF (taux: 1 %s = %s XOF)', 'yengapay-woo'),
+                    __('Montant converti de %s %s en %s XOF (taux: 1 %s = %s XOF)', 'yengapay'),
                     $order->get_total(),
                     $order_currency,
                     $total_amount,
@@ -178,8 +178,8 @@ class WC_YengaPay_Gateway extends WC_Payment_Gateway {
 
             // Construct API URL with organization_id and project_id
             $api_url = sprintf(
-            // YengaPay API URL
-            'YOUR_YENGAPAY_API_URL',
+            // Change with your YengaPay API URL
+            'https://api.yengapay.com/api/v1/groups/%s/payment-intent/%s',
             $this->groupeId,
             $this->projectId
             );
@@ -229,7 +229,7 @@ class WC_YengaPay_Gateway extends WC_Payment_Gateway {
             $payment_url = $body['checkoutPageUrlWithPaymentToken'];
             
             // Updating order status
-            $order->update_status('pending', __('En attente du paiement YengaPay', 'yengapay-woo'));
+            $order->update_status('pending', __('En attente du paiement YengaPay', 'yengapay'));
             
             // empty the cart
             WC()->cart->empty_cart();
@@ -241,7 +241,7 @@ class WC_YengaPay_Gateway extends WC_Payment_Gateway {
 
         } catch (Exception $e) {
             error_log('YengaPay Error: ' . $e->getMessage());
-            wc_add_notice(__('Erreur de paiement: ', 'yengapay-woo') . $e->getMessage(), 'error');
+            wc_add_notice(__('Erreur de paiement: ', 'yengapay') . $e->getMessage(), 'error');
             return array('result' => 'fail');
         }
     }       
@@ -251,49 +251,42 @@ class WC_YengaPay_Gateway extends WC_Payment_Gateway {
     */
     public function webhook_handler() {
         try {
-            // Get and log all headers
-            $headers = getallheaders();
-            error_log('YengaPay Webhook Headers: ' . print_r($headers, true));
+
+            // Get only the required header
+            $webhook_hash = $this->get_webhook_hash_header();
             
             // Get and log raw payload
             $payload = file_get_contents('php://input');
             
             if (empty($payload)) {
-                throw new Exception('Payload vide reçu');
+                throw new Exception(__('Empty payload received', 'yengapay'));
             }
-    
-            // Get and verify webhook hash
-            $headers = getallheaders();
-            $hash = isset($headers['X-Webhook-Hash']) ? $headers['X-Webhook-Hash'] : 
-            (isset($headers['x-webhook-hash']) ? $headers['x-webhook-hash'] : '');
 
             // Verify webhook secret configuration
             if (empty($this->webhook_secret)) {
-                throw new Exception('Veuillez configurer le webhook secret dans les paramètres YengaPay');
+                throw new Exception(__('Veuillez configurer le webhook secret dans les paramètres YengaPay', 'yengapay'));
             }
 
             // Verify hash presence
-            if (empty($hash)) {
-                throw new Exception('En-tête X-Webhook-Hash manquant');
-            }           
-
+            if (empty($webhook_hash)) {
+                throw new Exception(__('Missing X-Webhook-Hash header', 'yengapay'));
+            }     
+        
             // Verify hash validity
             $calculated_hash = hash_hmac('sha256', $payload, $this->webhook_secret);
-            if (!hash_equals($calculated_hash, $hash)) {  // Using hash_equals to avoid timing attacks
-                error_log('YengaPay Hash Mismatch. Expected: ' . $hash . ' Got: ' . $calculated_hash);
-                throw new Exception('Signature webhook invalide');
+            if (!hash_equals($calculated_hash, $webhook_hash)) {
+                throw new Exception(__('Invalid webhook signature', 'yengapay'));
             }
         
     
             // Decode and validate JSON payload
             $data = json_decode($payload, true);
             
+
             if (!$data) {
-                error_log('YengaPay Webhook Error: Invalid JSON - ' . json_last_error_msg());
-                throw new Exception('Payload JSON invalide: ' . json_last_error_msg());
+                throw new Exception(__('Invalid JSON payload: ', 'yengapay') . json_last_error_msg());
             }
     
-            error_log('YengaPay Webhook: Decoded data: ' . print_r($data, true));
     
             // Verify required fields
             if (!isset($data['reference']) || !isset($data['paymentStatus'])) {
@@ -304,7 +297,6 @@ class WC_YengaPay_Gateway extends WC_Payment_Gateway {
             $order = wc_get_order($data['reference']);
             
             if (!$order) {
-                error_log('YengaPay Webhook Error: Order not found - ' . $data['reference']);
                 throw new Exception('Commande non trouvée: ' . $data['reference']);
             }
             
@@ -316,7 +308,7 @@ class WC_YengaPay_Gateway extends WC_Payment_Gateway {
                         $transaction_id = isset($data['id']) ? $data['id'] : 'N/A';
                         $order->add_order_note(
                             sprintf(
-                                __('Paiement YengaPay confirmé. ID Transaction: %s', 'yengapay-woo'),
+                                __('Paiement YengaPay confirmé. ID Transaction: %s', 'yengapay'),
                                 $transaction_id
                             )
                         );
@@ -331,21 +323,21 @@ class WC_YengaPay_Gateway extends WC_Payment_Gateway {
                 case 'FAILED':
                     $order->update_status(
                         'failed',
-                        __('Paiement YengaPay échoué.', 'yengapay-woo')
+                        __('Paiement YengaPay échoué.', 'yengapay')
                     );
                     break;
                     
                 case 'PENDING':
                     $order->update_status(
                         'on-hold',
-                        __('Paiement YengaPay en attente de confirmation.', 'yengapay-woo')
+                        __('Paiement YengaPay en attente de confirmation.', 'yengapay')
                     );
                     break;
                     
                 case 'CANCELLED':
                     $order->update_status(
                         'cancelled',
-                        __('Paiement YengaPay annulé par l\'utilisateur.', 'yengapay-woo')
+                        __('Paiement YengaPay annulé par l\'utilisateur.', 'yengapay')
                     );
                     break;
                     
@@ -358,5 +350,26 @@ class WC_YengaPay_Gateway extends WC_Payment_Gateway {
             error_log('YengaPay Webhook Error: ' . $e->getMessage());
             wp_send_json_error($e->getMessage(), 400);
         }
+    }
+
+    /**
+     * Helper method to safely get the webhook hash header
+     * 
+     * @return string|null
+     */
+    private function get_webhook_hash_header() {
+        if (function_exists('getallheaders')) {
+            $headers = getallheaders();
+            // Search for the header in a case-insensitive manner
+            foreach ($headers as $header_name => $value) {
+                if (strtolower($header_name) === 'x-webhook-hash') {
+                    return $value;
+                }
+            }
+        }
+        
+        // Fallback for servers that don't support getallheaders()
+        $webhook_hash = isset($_SERVER['HTTP_X_WEBHOOK_HASH']) ? $_SERVER['HTTP_X_WEBHOOK_HASH'] : null;
+        return $webhook_hash;
     }
 }

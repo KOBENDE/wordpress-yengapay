@@ -1,10 +1,8 @@
-=== YengaPay for WooCommerce ===
-Contributors: kreezus
-Tags: payment gateway, woocommerce, yengapay, mobile money, xof, fcfa, west africa, payment processing
-Requires at least: 5.0
+=== YengaPay ===
+Contributors: Kreezus
+Tags: payment gateway, woocommerce, mobile money, yengapay, west africa
 Tested up to: 6.7
 Stable tag: 1.0.0
-Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 

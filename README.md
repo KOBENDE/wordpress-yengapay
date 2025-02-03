@@ -1,4 +1,4 @@
-# WordPress (WooCommerce) YengaPay Plugin
+# YengaPay Plugin
 
 A WordPress plugin that integrates YengaPay payment gateway with WooCommerce, allowing customers to pay using local mobile money payment systems.
 
